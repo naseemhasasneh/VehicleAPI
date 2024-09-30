@@ -13,7 +13,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient<VehicleService>();
 builder.Services.AddScoped<IVehicleService, VehicleService>();
 // Bind ApiSettings from appsettings.json
-builder.Services.Configure<ApiUrls>(builder.Configuration.GetSection("ApiSettings"));
+builder.Services.Configure<ApiUrls>(builder.Configuration.GetSection("ApiUrls"));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
