@@ -9,10 +9,10 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["VehicleAPI/VehicleAPI.csproj", "VehicleAPI/"]
-RUN dotnet restore "./VehicleAPI/./VehicleAPI.csproj"
+COPY ["VehicleAPI.csproj", "."]
+RUN dotnet restore "./VehicleAPI.csproj"
 COPY . .
-WORKDIR "/src/VehicleAPI"
+WORKDIR "/src/."
 RUN dotnet build "./VehicleAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish

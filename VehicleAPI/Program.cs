@@ -14,15 +14,23 @@ builder.Services.AddHttpClient<VehicleService>();
 builder.Services.AddScoped<IVehicleService, VehicleService>();
 // Bind ApiSettings from appsettings.json
 builder.Services.Configure<ApiUrls>(builder.Configuration.GetSection("ApiUrls"));
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
+        });
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
+app.UseCors("AllowAll");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
